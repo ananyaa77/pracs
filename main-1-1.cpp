@@ -1,17 +1,21 @@
-#include <iostream>
 
-int sum_diagonal(int array[4][4]);
+#include <iostream>
+#include "Person.h"
+
+// Declare the createPersonArray function
+Person* createPersonArray(int n);
 
 int main() {
-    int array[4][4] = {
-        {1, 1, 3, 5},
-        {1, 0, 4, 2},
-        {9, 2, 1, 8},
-        {6, 7, 3, 4}
-    };
-
-    int result = sum_diagonal(array);
-    std::cout << "Sum of the main diagonal: " << result << std::endl;
-
+    int n = 5; // You can change the value of n as needed
+    
+    Person* personArray = createPersonArray(n);
+    
+    for (int i = 0; i < n; ++i) {
+        std::cout << "Person " << i + 1 << " - Name: " << personArray[i].name
+                  << ", Age: " << personArray[i].age << std::endl;
+    }
+    
+    delete[] personArray; // Free memory
+    
     return 0;
 }
