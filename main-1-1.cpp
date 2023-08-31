@@ -1,17 +1,39 @@
 #include <iostream>
-
-int sum_diagonal(int array[4][4]);
+#include <vector>
+#include "Vehicle.h"   // Include your base class header
+#include "Car.h"       // Include your derived class headers
+#include "Bus.h"
+#include "Motorbike.h"
 
 int main() {
-    int array[4][4] = {
-        {1, 1, 3, 5},
-        {1, 0, 4, 2},
-        {9, 2, 1, 8},
-        {6, 7, 3, 4}
-    };
+    std::vector<Vehicle*> vehicles;
 
-    int result = sum_diagonal(array);
-    std::cout << "Sum of the main diagonal: " << result << std::endl;
+    int numCars, numBuses, numMotorbikes;
+    std::cout << "Enter the number of cars: ";
+    std::cin >> numCars;
+
+    std::cout << "Enter the number of buses: ";
+    std::cin >> numBuses;
+
+    std::cout << "Enter the number of motorbikes: ";
+    std::cin >> numMotorbikes;
+
+    for (int i = 0; i < numCars; ++i) {
+        vehicles.push_back(new Car(i + 1));
+    }
+
+    for (int i = 0; i < numBuses; ++i) {
+        vehicles.push_back(new Bus(i + 1));
+    }
+
+    for (int i = 0; i < numMotorbikes; ++i) {
+        vehicles.push_back(new Motorbike(i + 1));
+    }
+
+    for (Vehicle* vehicle : vehicles) {
+        std::cout << "Vehicle ID: " << vehicle->getID() << ", Parking Duration: " << vehicle->getParkingDuration() << " seconds\n";
+        delete vehicle;
+    }
 
     return 0;
 }
