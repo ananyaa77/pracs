@@ -1,5 +1,6 @@
 #include "Parkinglot.h"
 #include <iostream>
+#include <ctime>
 
 ParkingLot::ParkingLot(int maxCapacity) : maxCapacity(maxCapacity), currentCount(0) {
     vehicles.reserve(maxCapacity);
@@ -37,4 +38,18 @@ bool ParkingLot::unparkVehicle(int vehicleID) {
 
 int ParkingLot::getCount() const {
     return currentCount;
+}
+
+int ParkingLot::countOverstayingVehicles(int maxParkingDuration) const {
+    int overstayingCount = 0;
+    std::time_t currentTime = std::time(nullptr);
+
+    for (const Vehicle* vehicle : vehicles) {
+        int parkingDuration = vehicle->getParkingDuration();
+        if (static_cast<int>(currentTime - parkingDuration) > maxParkingDuration) {
+            overstayingCount++;
+        }
+    }
+
+    return overstayingCount;
 }
